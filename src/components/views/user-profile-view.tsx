@@ -16,7 +16,7 @@ interface IAvatarProps {
 const Avatar: React.FC<IAvatarProps> = (props: IAvatarProps) => {
   return (
     <img
-      className="UserProfile__avatar"
+      className="profile__avatar"
       src={props.picture}
       alt={props.firstName}
     />
