@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import NavBar from "./components/layout/nav-bar";
+import { Switch, Redirect, Route } from "react-router-dom";
+
+import HomeView from "./components/views/home-view";
+import MenuView from "./components/views/menu-view";
+import Loading from "./components/loading";
+
+import { useAuth0 } from "@auth0/auth0-react";
+
+import "./app.scss";
+import ProtectedRoute from "./components/auth/protected-route";
+import UserProfileView from "./components/views/user-profile-view";
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="mask" />
+      <NavBar />
+      <Switch>
+        <Redirect exact to="/home" from="/" />
+        <Route path="/home" component={HomeView} />
+        <Route path="/menu" component={MenuView} />
+        <ProtectedRoute path="/profile" component={UserProfileView} />
+      </Switch>
     </div>
   );
 }

@@ -1,0 +1,154 @@
+@import "../../theme/theme";
+
+#NavBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 100%;
+  width: 230px;
+
+  margin: 0;
+  padding: 24px 0 0 0;
+
+  background: $secondary-dark;
+
+  font-family: $core-font;
+  font-size: 14px;
+  font-weight: bold;
+
+  z-index: 9999;
+  user-select: none;
+  cursor: default;
+}
+
+.NavBar__header {
+  display: flex;
+  justify-content: center;
+
+  height: 60px;
+  width: 100%;
+
+  font-family: $logo-font;
+  font-size: 24px;
+  color: $on-secondary;
+}
+
+.NavBar__menu {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  user-select: none;
+}
+
+.NavBar__menuItem {
+  width: 100%;
+  line-height: 20px;
+  letter-spacing: 0.015em;
+}
+
+.NavBar__menuLink-wrapper {
+  position: relative;
+  display: flex;
+  color: inherit;
+  text-decoration: none;
+}
+
+.NavBar__menuLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  height: 40px;
+  width: 100%;
+  padding: 0 24px;
+
+  //color: #b3b3b3;
+}
+
+.NavBar__menuLink--active {
+  color: $on-secondary;
+}
+
+.NavBar__menuLink--active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  width: 4px;
+  background: $highlight;
+}
+
+.NavBar__menuLink-icon {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  width: 24px;
+}
+
+.NavBar__menuLink-label {
+  margin-left: 16px;
+}
+
+.Effect__linkFade:not(.NavBar__menuLink--active) {
+  transition-property: color;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  color: #b3b3b3;
+}
+
+.Effect__linkFade:hover,
+.Effect__linkFade:focus {
+  color: $on-secondary;
+}
+
+.NavBar__list {
+  flex: 1;
+  color: $on-secondary;
+}
+
+.NavBar__footer {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  color: $on-secondary;
+}
+
+.NavBar__userInfo {
+  display: flex;
+  margin: 8px 24px 24px 24px;
+  padding-top: 10px;
+  border-top: 1px solid $secondary-light;
+}
+
+.NavBar__userInfo-link {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.NavBar__userInfo-link--active {
+  color: $highlight;
+}
+
+.NavBar__userInfo-avatar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  width: 28px;
+}
+
+.NavBar__userInfo-name {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}

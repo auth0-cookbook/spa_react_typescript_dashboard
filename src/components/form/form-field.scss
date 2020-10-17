@@ -1,0 +1,64 @@
+@import "../../theme/theme";
+
+.Form__field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.7em;
+  margin-bottom: 1em;
+}
+
+.Form__field-row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.7em;
+  margin-bottom: 1em;
+}
+
+.Form__field-label {
+  font-weight: bold;
+}
+
+.Form__field-label--required {
+  color: $highlight;
+}
+
+.Form__field-input {
+  height: 48px;
+  width: 100%;
+
+  margin-top: 0.7em;
+  padding: 0 0.75em;
+
+  background: $secondary;
+
+  color: $on-secondary;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+
+  outline: none;
+  border: 0;
+  border-radius: 2px;
+
+  font-family: $core-font;
+}
+
+.Form__field-checkbox {
+  margin-top: 0;
+  margin-left: 1.5em;
+}
+
+.Form__field-textarea {
+  min-width: 800px;
+  max-width: 800px;
+  min-height: 100px;
+  padding: 0.75em;
+  line-height: 1.5em;
+}
+
+.Form__field-error {
+  margin-left: 15px;
+  color: $super-highlight;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}

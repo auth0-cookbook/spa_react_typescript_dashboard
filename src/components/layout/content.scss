@@ -1,0 +1,63 @@
+@import "../../theme/theme";
+
+.Content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.Content__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.Content__header-title {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -0.005em;
+  font-weight: bold;
+  margin: 24px 0;
+  border-bottom: 2px solid $highlight;
+}
+
+.Content__header-action {
+  display: flex;
+  align-items: center;
+
+  min-height: 30px;
+
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 16px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.Effect__linkFadeOpacity {
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  opacity: 0.6;
+}
+
+.Effect__linkFadeOpacity:hover,
+.Effect__linkFadeOpacity:focus {
+  opacity: 1;
+}
+
+.Content__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+
+  width: 100%;
+  padding: 0 8px;
+}
