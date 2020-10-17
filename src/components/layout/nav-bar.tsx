@@ -19,53 +19,53 @@ interface INavBarMenuLinkProps {
 }
 
 const NavBarHeader: React.FC = (props) => (
-  <div className="NavBar__header">{props.children}</div>
+  <div className="nav-bar__header">{props.children}</div>
 );
 
-const NavBarMenu: React.FC = (props) => (
-  <div className="NavBar__menu">{props.children}</div>
+const NavBarTabs: React.FC = (props) => (
+  <div className="nav-bar__tabs">{props.children}</div>
 );
 
-const NavBarMenuItem: React.FC = (props) => (
-  <div className="NavBar__menuItem">{props.children}</div>
+const NavBarTab: React.FC = (props) => (
+  <div className="nav-bar__tab">{props.children}</div>
 );
 
-const NavBarMenuLink: React.FC<INavBarMenuLinkProps> = (props) => {
+const NavBarTabLink: React.FC<INavBarMenuLinkProps> = (props) => {
   return (
     <NavLink
-      className="NavBar__menuLink-wrapper Effect__linkFade"
+      className="tab-link__wrapper effect__link-fade"
       to={props.to}
-      activeClassName="NavBar__menuLink--active"
+      activeClassName="tab-link--active"
     >
-      <div className="NavBar__menuLink">
-        <div className="NavBar__menuLink-icon">
+      <div className="tab-link">
+        <div className="tab-link__icon">
           <FontAwesomeIcon icon={props.icon} size="lg" />
         </div>
-        <span className="NavBar__menuLink-label">{props.label}</span>
+        <span className="tab-link__label">{props.label}</span>
       </div>
     </NavLink>
   );
 };
 
 const NavBarList: React.FC = (props) => (
-  <div className="NavBar__list">{props.children}</div>
+  <div className="nav-bar__list">{props.children}</div>
 );
 
 const NavBarFooter: React.FC = (props) => (
-  <div className="NavBar__footer">{props.children}</div>
+  <div className="nav-bar__footer">{props.children}</div>
 );
 
 const NavBarSessionInfo: React.FC = (props) => (
-  <div className="NavBar__userInfo">
+  <div className="nav-bar__user-info">
     <NavLink
-      className="NavBar__userInfo-link"
+      className="user-tab"
       to="/profile"
-      activeClassName="NavBar__userInfo-link--active"
+      activeClassName="user-tab--active"
     >
-      <div className="NavBar__userInfo-avatar">
+      <div className="user-tab__avatar">
         <FontAwesomeIcon icon={faUser} size="lg" />
       </div>
-      <span className="NavBar__userInfo-name">{props.children}</span>
+      <span className="user-tab__name">{props.children}</span>
     </NavLink>
   </div>
 );
@@ -78,16 +78,16 @@ const NavBar: React.FC = () => {
   console.log(user);
 
   return (
-    <nav id="NavBar" role="navigation" aria-label="NavBar">
+    <nav className="nav-bar" role="navigation" aria-label="nav-bar">
       <NavBarHeader>{appName}</NavBarHeader>
-      <NavBarMenu>
-        <NavBarMenuItem>
-          <NavBarMenuLink to="/home" label="Home" icon={faHome} />
-        </NavBarMenuItem>
-        <NavBarMenuItem>
-          <NavBarMenuLink to="/menu" label="Menu" icon={faUtensils} />
-        </NavBarMenuItem>
-      </NavBarMenu>
+      <NavBarTabs>
+        <NavBarTab>
+          <NavBarTabLink to="/home" label="Home" icon={faHome} />
+        </NavBarTab>
+        <NavBarTab>
+          <NavBarTabLink to="/menu" label="Menu" icon={faUtensils} />
+        </NavBarTab>
+      </NavBarTabs>
       <NavBarList />
       <NavBarFooter>
         {isAuthenticated ? (

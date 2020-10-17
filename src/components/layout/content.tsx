@@ -26,13 +26,13 @@ interface IContentProps {
 
 const ContentHeaderTitle: React.FC<IContentHeaderTitleProps> = (
   props: IContentHeaderTitleProps
-) => <div className="Content__header-title">{props.title}</div>;
+) => <div className="content__title">{props.title}</div>;
 
 const ContentHeaderAction: React.FC<IContentHeaderActionProps> = (
   props: IContentHeaderActionProps
 ) => (
   <div
-    className="Content__header-action Effect__linkFadeOpacity"
+    className="content__action effect__link-fade--opacity"
     onClick={props.action}
   >
     {props.actionName}
@@ -42,7 +42,7 @@ const ContentHeaderAction: React.FC<IContentHeaderActionProps> = (
 const ContentHeader: React.FC<IContentHeaderProps> = (
   props: IContentHeaderProps
 ) => (
-  <div className="Content__header">
+  <div className="content__header">
     <ContentHeaderTitle title={props.title} />
     {props.actionName && props.action && (
       <ContentHeaderAction
@@ -53,19 +53,20 @@ const ContentHeader: React.FC<IContentHeaderProps> = (
   </div>
 );
 
-const ContentBody: React.FC = props => (
-  <div className="Content__body">{props.children}</div>
+const ContentBody: React.FC = (props) => (
+  <div className="content__body">{props.children}</div>
 );
 
-const Content: React.FC<IContentProps> = (props: IContentProps) => {
+const Content: React.FC<IContentProps> = ({
+  title,
+  actionName,
+  action,
+  children,
+}) => {
   return (
-    <section className="Content">
-      <ContentHeader
-        title={props.title}
-        actionName={props.actionName}
-        action={props.action}
-      />
-      <ContentBody>{props.children}</ContentBody>
+    <section className="content">
+      <ContentHeader title={title} actionName={actionName} action={action} />
+      <ContentBody>{children}</ContentBody>
     </section>
   );
 };

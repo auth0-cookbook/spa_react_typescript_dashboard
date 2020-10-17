@@ -5,36 +5,33 @@ import Content from "./content";
 
 export enum ViewStates {
   Valid = "valid",
-  NotFound = "not_found"
+  NotFound = "not_found",
 }
 
 interface IViewProps {
   viewStatus?: ViewStates.Valid | ViewStates.NotFound;
-  children?: React.ReactNode;
 }
 
-class View extends React.Component<IViewProps> {
-  render() {
-    const viewStatus: string = this.props.viewStatus || ViewStates.Valid;
+const View: React.FC<IViewProps> = ({ viewStatus, children }) => {
+  const status: string = viewStatus || ViewStates.Valid;
 
-    return (
-      <main id="View">
-        {viewStatus === ViewStates.Valid && this.props.children}
+  return (
+    <main className="view">
+      {status === ViewStates.Valid && children}
 
-        {viewStatus === ViewStates.NotFound && (
-          <Content title="Page Not Found">
-            <h3>Unable to dish out content.</h3>
-            <img
-              className="View__notFound--image"
-              src="https://cdn.auth0.com/blog/whatabyte/broken-plate-sm.png"
-              alt="Broken plates, broken page"
-            />
-            {this.props.children}
-          </Content>
-        )}
-      </main>
-    );
-  }
-}
+      {status === ViewStates.NotFound && (
+        <Content title="Page Not Found">
+          <h3>Unable to dish out content.</h3>
+          <img
+            className="not-found--image"
+            src="https://cdn.auth0.com/blog/whatabyte/broken-plate-sm.png"
+            alt="Broken plates, broken page"
+          />
+          {children}
+        </Content>
+      )}
+    </main>
+  );
+};
 
 export default View;

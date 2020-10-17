@@ -1,6 +1,6 @@
 @import "../../theme/theme";
 
-#View {
+.view {
   display: flex;
   flex-direction: column;
 
@@ -18,7 +18,7 @@
   overflow-y: auto;
 }
 
-.View__notFound--image {
+.not-found--image {
   width: 450px;
   margin: 15px 0;
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 8px;

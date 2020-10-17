@@ -1,19 +1,19 @@
 @import "../../theme/theme";
 
-.Content {
+.content {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.Content__header {
+.content__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
 
-.Content__header-title {
+.content__title {
   font-size: 36px;
   line-height: 44px;
   letter-spacing: -0.005em;
@@ -22,7 +22,7 @@
   border-bottom: 2px solid $highlight;
 }
 
-.Content__header-action {
+.content__action {
   display: flex;
   align-items: center;
 
@@ -39,19 +39,19 @@
   user-select: none;
 }
 
-.Effect__linkFadeOpacity {
+.effect__link-fade--opacity {
   transition-property: opacity;
   transition-duration: 0.2s;
   transition-timing-function: linear;
   opacity: 0.6;
 }
 
-.Effect__linkFadeOpacity:hover,
-.Effect__linkFadeOpacity:focus {
+.effect__link-fade--opacity:hover,
+.effect__link-fade--opacity:focus {
   opacity: 1;
 }
 
-.Content__body {
+.content__body {
   flex: 1;
   display: flex;
   flex-direction: column;
