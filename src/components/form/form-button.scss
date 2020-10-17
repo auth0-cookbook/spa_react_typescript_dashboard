@@ -1,6 +1,6 @@
 @import "../../theme/theme";
 
-.Form__button {
+.form__button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@
   user-select: none;
 }
 
-.Effect__bgFade {
+.effect__bg-fade {
   background: $highlight;
   transition-property: background-color, border-color, color, box-shadow, filter,
     -webkit-box-shadow, -webkit-filter;
@@ -37,16 +37,16 @@
   white-space: normal;
 }
 
-.Effect__bgFade:hover {
+.effect__bg-fade:hover {
   background-color: #ff5c5c;
 }
 
-.Form__button--disabled {
+.form__button--disabled {
   background: $secondary;
   opacity: 0.5;
 }
 
-.Effect__bgFade.Form__button--disabled:hover {
+.effect__bg-fade.form__button--disabled:hover {
   background: $secondary;
   opacity: 0.5;
 }
