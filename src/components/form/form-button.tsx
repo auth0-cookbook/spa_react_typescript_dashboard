@@ -10,12 +10,12 @@ interface IFormButtonProps {
 
 const FormButton: React.FC<IFormButtonProps> = (props: IFormButtonProps) => (
   <button
-    className={`form__button ${
+    className={`form-button ${
       props.enabled === undefined
         ? `effect__bg-fade`
         : props.enabled
         ? `effect__bg-fade`
-        : `form__button--disabled`
+        : `form-button--disabled`
     }`}
     onClick={props.action}
     disabled={props.enabled === undefined ? false : !props.enabled}

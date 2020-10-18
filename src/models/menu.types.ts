@@ -29,3 +29,10 @@ export interface MenuField {
 export interface MenuFields {
   [key: string]: MenuField;
 }
+
+export interface MenuFormInput {
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+}

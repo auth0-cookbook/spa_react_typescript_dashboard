@@ -1,61 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import View from "../layout/view";
 import Content from "../layout/content";
 import GridItem from "../grid-item";
 import Grid from "../grid";
 
-import { MenuError, MenuItem } from "../../models/menu.types";
+import { MenuItem } from "../../models/menu.types";
 
-import { History } from "history";
+import { useStoreState } from "../../store/store";
+import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-interface IMenuViewProps {
-  history: History;
-}
-
 const MenuView: React.FC = () => {
-  const { isAuthenticated, user } = useAuth0();
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [errorMessage, setErrorMessage] = useState<MenuError | null>(null);
+  const history = useHistory();
 
-  const menuAdminRole: string = "menu-admin";
-  const rolesProp: string = new URL(
-    "roles",
-    process.env.REACT_APP_AUTH0_AUDIENCE
-  ).href;
-  const userRoles: string[] = user[rolesProp];
-  const isMenuAdmin: boolean = userRoles.includes(menuAdminRole);
+  const { isAuthenticated } = useAuth0();
+
+  const { items: menuItems } = useStoreState((state) => state.menu);
+  const { menuError } = useStoreState((state) => state.menuUi);
+  const { isMenuAdmin } = useStoreState((state) => state.user);
 
   const addMenuItem = (): void => {
-    // this.props.history.push(`/menu/add-item`);
+    history.push(`/menu/add-item`);
   };
-
-  useEffect(() => {
-    const baseURL = process.env.REACT_APP_SERVER_URL;
-    const path = "items";
-
-    const reqUrl = new URL(path, baseURL).href;
-
-    const fetchMenu = async () => {
-      try {
-        const res = await fetch(reqUrl);
-        const json = await res.json();
-
-        setMenuItems(Object.values(json));
-      } catch (e) {
-        setErrorMessage(e.message);
-      }
-    };
-
-    fetchMenu();
-  }, []);
 
   const body = (
     <>
       {menuItems ? (
         <Grid>
-          {menuItems.map((menuItem: MenuItem) => (
+          {Object.values(menuItems).map((menuItem: MenuItem) => (
             <GridItem
               key={menuItem.id}
               {...menuItem}
@@ -65,7 +38,7 @@ const MenuView: React.FC = () => {
         </Grid>
       ) : null}
 
-      {errorMessage && <span>{errorMessage}</span>}
+      {menuError && <span>{menuError.message}</span>}
     </>
   );
 

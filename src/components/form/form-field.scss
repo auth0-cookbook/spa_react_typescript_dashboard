@@ -1,28 +1,28 @@
 @import "../../theme/theme";
 
-.Form__field {
+.form-field {
   display: flex;
   flex-direction: column;
   margin-top: 0.7em;
   margin-bottom: 1em;
 }
 
-.Form__field-row {
+.form-field__row {
   display: flex;
   flex-direction: row;
   margin-top: 0.7em;
   margin-bottom: 1em;
 }
 
-.Form__field-label {
+.form-field__label {
   font-weight: bold;
 }
 
-.Form__field-label--required {
+.form-field__label--required {
   color: $highlight;
 }
 
-.Form__field-input {
+.form-field__input {
   height: 48px;
   width: 100%;
 
@@ -43,12 +43,12 @@
   font-family: $core-font;
 }
 
-.Form__field-checkbox {
+.form-field__checkbox {
   margin-top: 0;
   margin-left: 1.5em;
 }
 
-.Form__field-textarea {
+.form-field__textarea {
   min-width: 800px;
   max-width: 800px;
   min-height: 100px;
@@ -56,7 +56,7 @@
   line-height: 1.5em;
 }
 
-.Form__field-error {
+.form-field__error {
   margin-left: 15px;
   color: $super-highlight;
   font-weight: bold;

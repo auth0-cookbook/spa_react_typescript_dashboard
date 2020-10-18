@@ -1,6 +1,6 @@
 @import "../../theme/theme";
 
-.form__button {
+.form-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,12 +41,12 @@
   background-color: #ff5c5c;
 }
 
-.form__button--disabled {
+.form-button--disabled {
   background: $secondary;
   opacity: 0.5;
 }
 
-.effect__bg-fade.form__button--disabled:hover {
+.effect__bg-fade.form-button--disabled:hover {
   background: $secondary;
   opacity: 0.5;
 }
