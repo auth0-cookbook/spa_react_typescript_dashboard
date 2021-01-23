@@ -16,7 +16,7 @@ import { Loading } from "./components/loading";
 import "./app.scss";
 import { useAuth0 } from "@auth0/auth0-react";
 
-export function App() {
+export const App = () => {
   // const { isReady } = useMenuItems();
   const { isLoading } = useAuth0();
 
@@ -45,4 +45,4 @@ export function App() {
       )}
     </div>
   );
-}
+};

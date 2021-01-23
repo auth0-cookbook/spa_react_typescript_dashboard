@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
 
-import { App } from "./App";
 import { MenuProvider } from "./context/menu-context";
 import { Auth0ProviderWithHistory } from "./components/auth/auth0-provider-with-history";
 
 import history from "./history";
 
 import "./index.scss";
+import { App } from "./app";
 
 ReactDOM.render(
   <React.StrictMode>
