@@ -1,6 +1,5 @@
 import React from "react";
 
-import { NavBar } from "./components/layout/nav-bar";
 import { Switch, Redirect, Route } from "react-router-dom";
 
 import { HomeView } from "./components/views/home/home-view";
@@ -15,6 +14,7 @@ import { Loading } from "./components/loading";
 
 import "./app.scss";
 import { useAuth0 } from "@auth0/auth0-react";
+import { NavBar } from "./components/layout/nav-bar";
 
 export const App = () => {
   const { isLoading } = useAuth0();
@@ -31,7 +31,7 @@ export const App = () => {
   return (
     <div className="App">
       <div id="mask" />
-      <NavBar />
+      <NavBar appName="Auth0 Eats" />
       <Switch>
         <Redirect exact to="/home" from="/" />
         <Route path="/home" component={HomeView} />
