@@ -17,32 +17,28 @@ import "./app.scss";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const App = () => {
-  // const { isReady } = useMenuItems();
   const { isLoading } = useAuth0();
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="App">
-  //       <Loading />
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="App">
+        <div id="mask" />
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="App">
       <div id="mask" />
       <NavBar />
-      {!isLoading ? (
-        <Switch>
-          <Redirect exact to="/home" from="/" />
-          <Route path="/home" component={HomeView} />
-          <ProtectedRoute path="/profile" component={UserProfileView} />
-          <Route path="/menu" component={MenuView} />
-          <Route component={NotFoundView} />
-        </Switch>
-      ) : (
-        <Loading />
-      )}
+      <Switch>
+        <Redirect exact to="/home" from="/" />
+        <Route path="/home" component={HomeView} />
+        <ProtectedRoute path="/profile" component={UserProfileView} />
+        <Route path="/menu" component={MenuView} />
+        <Route component={NotFoundView} />
+      </Switch>
     </div>
   );
 };
