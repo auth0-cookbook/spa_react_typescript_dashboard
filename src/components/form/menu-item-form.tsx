@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import FormButton from "./form-button";
+import { FormButton } from "./form-button";
 import { MenuFormInput, MenuItem } from "../../models/menu.types";
-import FormField from "./form-field";
+import { FormField } from "./form-field";
 
 import "./form.scss";
 
@@ -12,7 +12,7 @@ interface FormProps {
   onSubmit: (data: MenuFormInput) => void;
 }
 
-const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
+export const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
   const { register, handleSubmit, errors, formState } = useForm<MenuFormInput>({
     mode: "onChange",
   });
@@ -37,7 +37,7 @@ const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
           pattern={/^([1-9]+[0-9]*|0)(\.[\d][\d])$/}
           errors={errors.price}
           register={register}
-          defaultValue={menuItem.price / 100}
+          defaultValue={(menuItem.price / 100).toFixed(2)}
         />
         <FormField
           label="Description"
@@ -67,5 +67,3 @@ const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
     </>
   );
 };
-
-export default MenuItemForm;

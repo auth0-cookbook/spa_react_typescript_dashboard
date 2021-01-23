@@ -1,14 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../loading";
+import { Loading } from "../loading";
 import { RouteProps } from "react-router";
 
 interface ProtectedRouteProps extends RouteProps {
   component: React.ComponentType;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   component,
   ...args
 }) => (
@@ -19,5 +19,3 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     {...args}
   />
 );
-
-export default ProtectedRoute;

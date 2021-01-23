@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import FormButton from "../form/form-button";
+import { FormButton } from "../form/form-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons/faUtensils";
@@ -70,12 +70,16 @@ const NavBarSessionInfo: React.FC = (props) => (
   </div>
 );
 
-const NavBar: React.FC = () => {
+export const NavBar: React.FC = () => {
   const appName = "WHATABYTE";
 
-  const { isAuthenticated, logout, loginWithPopup, user } = useAuth0();
-
-  console.log(user);
+  const {
+    isAuthenticated,
+    logout,
+    loginWithPopup,
+    user,
+    isLoading,
+  } = useAuth0();
 
   return (
     <nav className="nav-bar" role="navigation" aria-label="nav-bar">
@@ -89,21 +93,23 @@ const NavBar: React.FC = () => {
         </NavBarTab>
       </NavBarTabs>
       <NavBarList />
-      <NavBarFooter>
-        {isAuthenticated ? (
-          <>
-            <FormButton
-              label="Sign Out"
-              action={() => logout({ returnTo: window.location.origin })}
-            />
-            <NavBarSessionInfo>{user.name || `WAB Teammate`}</NavBarSessionInfo>
-          </>
-        ) : (
-          <FormButton label="Sign In" action={loginWithPopup} />
-        )}
-      </NavBarFooter>
+      {!isLoading && (
+        <NavBarFooter>
+          {isAuthenticated ? (
+            <>
+              <FormButton
+                label="Sign Out"
+                action={() => logout({ returnTo: window.location.origin })}
+              />
+              <NavBarSessionInfo>
+                {user.name || `WAB Teammate`}
+              </NavBarSessionInfo>
+            </>
+          ) : (
+            <FormButton label="Sign In" action={loginWithPopup} />
+          )}
+        </NavBarFooter>
+      )}
     </nav>
   );
 };
-
-export default NavBar;

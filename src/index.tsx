@@ -1,23 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./App";
+import { App } from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Router } from "react-router-dom";
-import Auth0ProviderWithHistory from "./components/auth/auth0-provider-with-history";
+import { Auth0ProviderWithHistory } from "./components/auth/auth0-provider-with-history";
 
 import "./index.scss";
-import { StoreProvider } from "easy-peasy";
-import { store } from "./store/store";
 import history from "./history";
+import { MenuProvider } from "./context/menu-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router history={history}>
       <Auth0ProviderWithHistory>
-        <StoreProvider store={store}>
+        <MenuProvider>
           <App />
-        </StoreProvider>
+        </MenuProvider>
       </Auth0ProviderWithHistory>
     </Router>
   </React.StrictMode>,

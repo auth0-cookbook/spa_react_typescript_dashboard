@@ -57,7 +57,7 @@ const ContentBody: React.FC = (props) => (
   <div className="content__body">{props.children}</div>
 );
 
-const Content: React.FC<IContentProps> = ({
+export const Content: React.FC<IContentProps> = ({
   title,
   actionName,
   action,
@@ -70,5 +70,3 @@ const Content: React.FC<IContentProps> = ({
     </section>
   );
 };
-
-export default Content;

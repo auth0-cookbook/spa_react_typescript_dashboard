@@ -14,7 +14,7 @@ interface FormFieldProps {
   defaultValue?: string | number;
 }
 
-const FormField: React.FC<FormFieldProps> = ({
+export const FormField: React.FC<FormFieldProps> = ({
   errors,
   label,
   required,
@@ -43,5 +43,3 @@ const FormField: React.FC<FormFieldProps> = ({
     </div>
   );
 };
-
-export default FormField;

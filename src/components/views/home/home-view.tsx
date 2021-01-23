@@ -1,11 +1,11 @@
 import React from "react";
 
-import Content from "../layout/content";
-import View from "../layout/view";
+import { Content } from "../../layout/content";
+import { View } from "../../layout/view";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-const HomeView: React.FC = () => {
+export const HomeView: React.FC = () => {
   const { isAuthenticated, user } = useAuth0();
 
   return (
@@ -20,5 +20,3 @@ const HomeView: React.FC = () => {
     </View>
   );
 };
-
-export default HomeView;

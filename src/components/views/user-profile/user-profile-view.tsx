@@ -1,8 +1,8 @@
 import React from "react";
 
-import Content from "../layout/content";
-import Button from "../button";
-import View from "../layout/view";
+import { Content } from "../../layout/content";
+import { Button } from "../../button";
+import { View } from "../../layout/view";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -23,7 +23,7 @@ const Avatar: React.FC<IAvatarProps> = (props: IAvatarProps) => {
   );
 };
 
-const UserProfileView = () => {
+export const UserProfileView = () => {
   const { user } = useAuth0();
 
   return (
@@ -38,5 +38,3 @@ const UserProfileView = () => {
     )
   );
 };
-
-export default UserProfileView;

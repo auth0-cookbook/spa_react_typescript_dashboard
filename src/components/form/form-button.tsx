@@ -8,7 +8,9 @@ interface IFormButtonProps {
   label: string;
 }
 
-const FormButton: React.FC<IFormButtonProps> = (props: IFormButtonProps) => (
+export const FormButton: React.FC<IFormButtonProps> = (
+  props: IFormButtonProps
+) => (
   <button
     className={`form-button ${
       props.enabled === undefined
@@ -23,5 +25,3 @@ const FormButton: React.FC<IFormButtonProps> = (props: IFormButtonProps) => (
     {props.label}
   </button>
 );
-
-export default FormButton;

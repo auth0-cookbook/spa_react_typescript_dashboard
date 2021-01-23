@@ -36,3 +36,10 @@ export interface MenuFormInput {
   description: string;
   image: string;
 }
+
+export enum FetchState {
+  FETCHING = "FETCHING",
+  FETCHED = "FETCHED",
+  FETCH_ERROR = "FETCH_ERROR",
+  FETCH_NOT_FOUND = "FETCH_NOT_FOUND",
+}

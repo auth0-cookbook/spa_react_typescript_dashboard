@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./view.scss";
-import Content from "./content";
+import { Content } from "./content";
 
 export enum ViewStates {
   Valid = "valid",
@@ -12,7 +12,7 @@ interface IViewProps {
   viewStatus?: ViewStates.Valid | ViewStates.NotFound;
 }
 
-const View: React.FC<IViewProps> = ({ viewStatus, children }) => {
+export const View: React.FC<IViewProps> = ({ viewStatus, children }) => {
   const status: string = viewStatus || ViewStates.Valid;
 
   return (
@@ -33,5 +33,3 @@ const View: React.FC<IViewProps> = ({ viewStatus, children }) => {
     </main>
   );
 };
-
-export default View;

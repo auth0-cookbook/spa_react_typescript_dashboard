@@ -8,10 +8,12 @@ type IButtonProps = {
   label: string;
 };
 
-const Button: React.FC<IButtonProps> = ({ action, label, size = "small" }) => (
+export const Button: React.FC<IButtonProps> = ({
+  action,
+  label,
+  size = "small",
+}) => (
   <div className={`button button--${size} effect__grow`} onClick={action}>
     {label}
   </div>
 );
-
-export default Button;

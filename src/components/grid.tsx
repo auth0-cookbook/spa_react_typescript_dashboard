@@ -2,6 +2,6 @@ import React from "react";
 
 import "./grid.scss";
 
-const Grid: React.FC = (props) => <div className="grid">{props.children}</div>;
-
-export default Grid;
+export const Grid: React.FC = React.memo((props) => (
+  <div className="grid">{props.children}</div>
+));
