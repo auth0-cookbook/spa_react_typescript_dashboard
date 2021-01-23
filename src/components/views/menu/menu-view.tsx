@@ -2,7 +2,7 @@ import React from "react";
 
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 
-import { ProtectedRoute } from "../../auth/protected-route";
+import { ProtectedRoute } from "../../security/protected-route";
 import { AddItemView } from "./add-item-view";
 import { EditItemView } from "./edit-item-view";
 import { MenuItemView } from "./menu-item-view";

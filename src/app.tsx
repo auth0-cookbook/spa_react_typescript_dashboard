@@ -5,7 +5,7 @@ import { Switch, Redirect, Route } from "react-router-dom";
 import { HomeView } from "./components/views/home/home-view";
 import { MenuView } from "./components/views/menu/menu-view";
 
-import { ProtectedRoute } from "./components/auth/protected-route";
+import { ProtectedRoute } from "./components/security/protected-route";
 import { UserProfileView } from "./components/views/user-profile/user-profile-view";
 
 import { NotFoundView } from "./components/views/common/not-found-view";
