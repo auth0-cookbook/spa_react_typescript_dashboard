@@ -26,13 +26,13 @@ interface IContentProps {
 
 const ContentHeaderTitle: React.FC<IContentHeaderTitleProps> = (
   props: IContentHeaderTitleProps
-) => <div className="content__title">{props.title}</div>;
+) => <div className="content__header-title">{props.title}</div>;
 
 const ContentHeaderAction: React.FC<IContentHeaderActionProps> = (
   props: IContentHeaderActionProps
 ) => (
   <div
-    className="content__action effect__link-fade--opacity"
+    className="content__header-action effect__link-fade-opacity"
     onClick={props.action}
   >
     {props.actionName}
@@ -57,16 +57,15 @@ const ContentBody: React.FC = (props) => (
   <div className="content__body">{props.children}</div>
 );
 
-export const Content: React.FC<IContentProps> = ({
-  title,
-  actionName,
-  action,
-  children,
-}) => {
+export const Content: React.FC<IContentProps> = (props: IContentProps) => {
   return (
     <section className="content">
-      <ContentHeader title={title} actionName={actionName} action={action} />
-      <ContentBody>{children}</ContentBody>
+      <ContentHeader
+        title={props.title}
+        actionName={props.actionName}
+        action={props.action}
+      />
+      <ContentBody>{props.children}</ContentBody>
     </section>
   );
 };
