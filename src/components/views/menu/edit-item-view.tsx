@@ -2,7 +2,7 @@ import React from "react";
 
 import { View, ViewStates } from "../../layout/view";
 import { Content } from "../../layout/content";
-import { Button } from "../../button";
+import { Button } from "../../ui/button";
 import { MenuItemForm } from "../../form/menu-item-form";
 
 import {
@@ -13,7 +13,7 @@ import {
 
 import { useHistory, useParams } from "react-router-dom";
 
-import { Loading } from "../../loading";
+import { Loading } from "../../ui/loading";
 import { useMenuAdmin } from "../../../hooks/use-menu-admin";
 import { useMenu } from "../../../context/menu-context";
 import { useMenuItem } from "../../../hooks/use-menu-item";

@@ -11,7 +11,7 @@ export interface MenuItems {
 }
 
 export interface MenuError {
-  error: boolean;
+  status: number;
   message: string;
 }
 

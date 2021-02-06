@@ -1,48 +1,51 @@
 import { useEffect, useState } from "react";
-import { itemsReqUrl } from "../store/request-helpers";
 import { FetchState, MenuError, MenuItems } from "../models/menu.types";
 import { useMenu } from "../context/menu-context";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const useMenuItems = () => {
   const [menuFetchError, setMenuFetchError] = useState<MenuError>();
   const [fetchState, setFetchState] = useState<FetchState>(FetchState.FETCHING);
 
-  const { createMenuItems, readMenuItems } = useMenu();
-  const menuItems = readMenuItems();
+  const { createMenuItems } = useMenu();
+  // const menuItems = readMenuItems();
 
   useEffect(() => {
     const fetchMenuItems = async () => {
-      try {
-        const res = await fetch(itemsReqUrl);
+      const apiServerUrl = process.env.REACT_APP_API_SERVER_URL;
 
-        if (res.ok) {
-          const menuItems: MenuItems = await res.json();
-          console.log(menuItems);
-          createMenuItems(menuItems);
+      if (!apiServerUrl) {
+        return;
+      }
+
+      try {
+        const response: AxiosResponse = await axios.get(apiServerUrl);
+
+        const { data }: { data: MenuItems } = response;
+
+        if (data) {
+          createMenuItems(data);
           setFetchState(FetchState.FETCHED);
         }
+      } catch (e) {
+        const error = e as AxiosError;
+        let errorMessage = undefined;
 
-        if (!res.ok) {
-          const error = await res.json();
+        if (error.response) {
+          const { data, status } = error.response;
+          const { message } = data;
 
-          setMenuFetchError({
-            error: true,
-            message: error.message,
-          });
+          errorMessage = message || "Unable to fetch items";
+
+          setMenuFetchError({ status, message: errorMessage });
 
           setFetchState(FetchState.FETCH_ERROR);
         }
-      } catch (e) {
-        setMenuFetchError({
-          error: true,
-          message: e.message,
-        });
-        setFetchState(FetchState.FETCH_ERROR);
       }
     };
 
     fetchMenuItems();
   }, []);
 
-  return { menuItems, fetchState, menuFetchError };
+  return { fetchState, menuFetchError };
 };

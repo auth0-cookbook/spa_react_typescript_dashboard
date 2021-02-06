@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Content } from "../../layout/content";
-import { Button } from "../../button";
+import { Button } from "../../ui/button";
 import { View } from "../../layout/view";
 
 import { useAuth0 } from "@auth0/auth0-react";

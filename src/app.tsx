@@ -10,7 +10,7 @@ import { UserProfileView } from "./components/views/user-profile/user-profile-vi
 
 import { NotFoundView } from "./components/views/common/not-found-view";
 
-import { Loading } from "./components/loading";
+import { Loading } from "./components/ui/loading";
 
 import "./app.scss";
 import { useAuth0 } from "@auth0/auth0-react";

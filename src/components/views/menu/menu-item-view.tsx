@@ -1,7 +1,7 @@
 import React from "react";
 
 import { View, ViewStates } from "../../layout/view";
-import { Button } from "../../button";
+import { Button } from "../../ui/button";
 import { Content } from "../../layout/content";
 
 import { useHistory, useParams } from "react-router-dom";

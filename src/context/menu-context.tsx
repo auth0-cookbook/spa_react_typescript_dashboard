@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import { MenuItem, MenuItems } from "../models/menu.types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { itemsPath, itemsReqUrl } from "../store/request-helpers";
 import { useHistory } from "react-router-dom";
 
 const MenuContext = React.createContext<
@@ -35,12 +34,16 @@ const useMenu = () => {
   };
 
   const createMenuItem = async (newMenuItem: MenuItem) => {
-    const itemReqUrl = new URL(`${itemsPath}/`, itemsReqUrl).href;
+    const apiServerUrl = process.env.REACT_APP_API_SERVER_URL;
+
+    if (!apiServerUrl) {
+      return;
+    }
 
     const token = await getAccessTokenSilently();
 
     try {
-      const res = await fetch(itemReqUrl, {
+      const res = await fetch(apiServerUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +63,9 @@ const useMenu = () => {
   const readMenuItem = (menuItemId: number) => menuItems[menuItemId];
 
   const updateMenuItem = async (updatedMenuItem: MenuItem) => {
-    const itemReqUrl = new URL(`${itemsPath}/`, itemsReqUrl).href;
+    const itemReqUrl = `${
+      process.env.REACT_APP_API_SERVER_URL
+    }/${updatedMenuItem.id.toString()}`;
 
     const token = await getAccessTokenSilently();
 
@@ -71,7 +76,7 @@ const useMenu = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ item: updatedMenuItem }),
+        body: JSON.stringify(updatedMenuItem),
       });
 
       if (res.ok) {
@@ -81,10 +86,9 @@ const useMenu = () => {
   };
 
   const deleteMenuItem = async (menuItemId: number) => {
-    const itemReqUrl = new URL(
-      `${itemsPath}/${menuItemId.toString()}`,
-      itemsReqUrl
-    ).href;
+    const itemReqUrl = `${
+      process.env.REACT_APP_API_SERVER_URL
+    }/${menuItemId.toString()}`;
 
     const token = await getAccessTokenSilently();
 

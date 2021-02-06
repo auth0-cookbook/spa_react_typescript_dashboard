@@ -1,35 +1,44 @@
 import { useEffect, useState } from "react";
-import { FetchState, MenuError, MenuItem } from "../models/menu.types";
-import { itemsPath, itemsReqUrl } from "../store/request-helpers";
+import {
+  FetchState,
+  MenuError,
+  MenuItem,
+  MenuItems,
+} from "../models/menu.types";
+
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const useMenuItem = (id: number) => {
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
   const [menuItemFetchError, setMenuItemFetchError] = useState<MenuError>();
   const [fetchState, setFetchState] = useState<FetchState>(FetchState.FETCHING);
 
-  const itemReqUrl = new URL(`${itemsPath}/${id.toString()}`, itemsReqUrl).href;
+  const itemReqUrl = `${process.env.REACT_APP_API_SERVER_URL}/${id.toString()}`;
 
   useEffect(() => {
     const fetchMenuItem = async () => {
       try {
-        const res = await fetch(itemReqUrl);
-        const menuItem: MenuItem = await res.json();
+        const response: AxiosResponse = await axios.get(itemReqUrl);
+        const { data }: { data: MenuItems } = response;
 
-        if (res.ok && menuItem) {
+        if (data) {
           setMenuItem(menuItem);
           setFetchState(FetchState.FETCHED);
         }
-
-        if (!(res.ok && menuItem)) {
-          setFetchState(FetchState.FETCH_NOT_FOUND);
-        }
       } catch (e) {
-        setMenuItemFetchError({
-          error: true,
-          message: e.message,
-        });
+        const error = e as AxiosError;
+        let errorMessage = undefined;
 
-        setFetchState(FetchState.FETCH_ERROR);
+        if (error.response) {
+          const { data, status } = error.response;
+          const { message } = data;
+
+          errorMessage = message || "Unable to fetch items";
+
+          setMenuItemFetchError({ status, message: errorMessage });
+
+          setFetchState(FetchState.FETCH_ERROR);
+        }
       }
     };
 

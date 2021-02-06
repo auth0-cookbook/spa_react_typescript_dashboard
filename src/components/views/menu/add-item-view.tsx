@@ -9,7 +9,7 @@ import { MenuItemForm } from "../../form/menu-item-form";
 import { useHistory } from "react-router-dom";
 
 import { useMenu } from "../../../context/menu-context";
-import { Loading } from "../../loading";
+import { Loading } from "../../ui/loading";
 
 export const AddItemView = () => {
   const [isProcessing] = useState<boolean>(false);
