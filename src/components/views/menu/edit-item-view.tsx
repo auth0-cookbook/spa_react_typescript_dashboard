@@ -9,13 +9,13 @@ import { Loader } from "../../ui/loader";
 import { useMenuAdmin } from "../../../hooks/use-menu-admin";
 import { useMenu } from "../../../context/menu-context";
 import { useMenuItem } from "../../../hooks/use-menu-item";
-import { OutlineButton } from "../../ui/outline-button";
 
 import {
   FetchState,
   MenuFormInput,
   MenuItem,
 } from "../../../models/menu.types";
+import { Button } from "../../ui/button";
 
 export const EditItemView = () => {
   const history = useHistory();
@@ -48,7 +48,8 @@ export const EditItemView = () => {
   if (!(menuItem && isMenuAdmin)) {
     return (
       <View viewStatus={ViewStates.NotFound}>
-        <OutlineButton
+        <Button
+          variant="outline"
           label="View menu items"
           action={() => history.push("/menu")}
         />

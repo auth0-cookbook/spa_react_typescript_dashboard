@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { Logo } from "../ui/logo";
-import { SolidButton } from "../ui/solid-button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
@@ -13,6 +12,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import "./nav-bar.scss";
+import { Button } from "../ui/button";
 
 interface INavBarMenuLinkProps {
   to: string;
@@ -70,7 +70,8 @@ export const NavBar: React.FC = () => {
       </div>
       {isAuthenticated && (
         <div className="nav-bar__footer">
-          <SolidButton
+          <Button
+            variant="solid"
             customClass="nav-bar__authentication-button"
             label="Log Out"
             action={() => logout()}
@@ -82,7 +83,8 @@ export const NavBar: React.FC = () => {
       )}
       {!isAuthenticated && (
         <div className="nav-bar__footer">
-          <SolidButton
+          <Button
+            variant="solid"
             customClass="nav-bar__authentication-button"
             label="Log In"
             action={async () => await loginWithRedirect()}

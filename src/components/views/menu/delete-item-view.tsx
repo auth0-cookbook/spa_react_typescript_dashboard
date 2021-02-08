@@ -11,10 +11,9 @@ import { Loader } from "../../ui/loader";
 import { useMenuAdmin } from "../../../hooks/use-menu-admin";
 import { useMenu } from "../../../context/menu-context";
 import { useMenuItem } from "../../../hooks/use-menu-item";
-import { OutlineButton } from "../../ui/outline-button";
 
 import "./delete-item-view.scss";
-import { TextButton } from "../../ui/text-button";
+import { Button } from "../../ui/button";
 
 export const DeleteItemView = () => {
   const history = useHistory();
@@ -36,7 +35,8 @@ export const DeleteItemView = () => {
   if (!(menuItem && isMenuAdmin)) {
     return (
       <View viewStatus={ViewStates.NotFound}>
-        <OutlineButton
+        <Button
+          variant="outline"
           label="View menu items"
           action={() => history.push("/menu")}
         />
@@ -79,11 +79,12 @@ export const DeleteItemView = () => {
             </div>
             <div className="delete-item__options">
               <div className="form__actions">
-                <OutlineButton
+                <Button
+                  variant="outline"
                   action={() => menuItem && deleteMenuItem(menuItem.id)}
                   label="Delete"
                 />
-                <TextButton action={cancel} label="Cancel" />
+                <Button variant="text" action={cancel} label="Cancel" />
               </div>
             </div>
           </div>

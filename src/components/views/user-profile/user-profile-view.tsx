@@ -4,10 +4,9 @@ import { useAuth0, WithAuth0Props } from "@auth0/auth0-react";
 
 import { View } from "../../layout/view";
 import { Content } from "../../layout/content";
-import { OutlineButton } from "../../ui/outline-button";
-import { TextButton } from "../../ui/text-button";
 
 import "./user-profile-view.scss";
+import { Button } from "../../ui/button";
 
 interface IAvatarProps {
   picture: string;
@@ -40,8 +39,8 @@ export const UserProfileView: React.FC<WithAuth0Props> = () => {
       <Content title={user.name}>
         <Avatar picture={user.picture} firstName={user.name} />
         <div className="user-profile__actions">
-          <OutlineButton label="View Account" action={() => {}} />
-          <TextButton label="Help" action={() => {}} />
+          <Button variant="outline" label="View Account" action={() => {}} />
+          <Button variant="text" label="Help" action={() => {}} />
         </div>
       </Content>
     </View>

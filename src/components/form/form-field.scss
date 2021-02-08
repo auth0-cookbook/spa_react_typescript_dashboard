@@ -30,7 +30,7 @@
 }
 
 .form-field__label--required {
-  color: $highlight;
+  color: $red;
 }
 
 .form-field__input {
@@ -39,8 +39,6 @@
   border: 0;
   border-bottom: 1px solid $pastel-brown;
 
-  //background: #f0e9e1;
-  //background: #faf1e8;
   background: $almond;
 
   font-family: $core-font;
@@ -56,8 +54,6 @@
 }
 
 .form-field__textarea {
-  //min-width: 800px;
-  //max-width: 800px;
   min-height: 100px;
   padding: 0.75em;
   line-height: 1.5em;
@@ -65,7 +61,7 @@
 
 .form-field__error {
   margin-left: 15px;
-  color: $super-highlight;
+  color: $bright-red;
   font-weight: bold;
   letter-spacing: 0.05em;
 }

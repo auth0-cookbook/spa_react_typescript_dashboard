@@ -10,7 +10,7 @@ import { useMenuItem } from "../../../hooks/use-menu-item";
 import { FetchState } from "../../../models/menu.types";
 
 import "./menu-item-view.scss";
-import { OutlineButton } from "../../ui/outline-button";
+import { Button } from "../../ui/button";
 
 export const MenuItemView: React.FC = () => {
   const history = useHistory();
@@ -43,7 +43,8 @@ export const MenuItemView: React.FC = () => {
   if (fetchState === FetchState.FETCH_NOT_FOUND) {
     return (
       <View viewStatus={ViewStates.NotFound}>
-        <OutlineButton
+        <Button
+          variant="outline"
           label="View menu items"
           action={() => history.push("/menu")}
         />
@@ -87,13 +88,15 @@ export const MenuItemView: React.FC = () => {
             </div>
             {isMenuAdmin && menuItem && (
               <div className="menu-item__actions">
-                <OutlineButton
+                <Button
+                  variant="outline"
                   label="Edit"
                   action={() => {
                     menuItem && history.push(`/menu/${menuItem.id}/edit-item/`);
                   }}
                 />
-                <OutlineButton
+                <Button
+                  variant="outline"
                   label="Delete"
                   action={() => {
                     menuItem &&

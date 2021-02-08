@@ -4,10 +4,8 @@ import { useForm } from "react-hook-form";
 import { BaseMenuItem, MenuFormInput } from "../../models/menu.types";
 import { FormField } from "./form-field";
 
-import { OutlineButton } from "../ui/outline-button";
-import { TextButton } from "../ui/text-button";
-
 import "./form.scss";
+import { Button } from "../ui/button";
 
 interface FormProps {
   menuItem: BaseMenuItem;
@@ -109,12 +107,13 @@ export const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
         />
       </form>
       <div className="form__actions">
-        <OutlineButton
+        <Button
+          variant="outline"
           enabled={isValid}
           label="Save"
           action={handleSubmit(onSubmit)}
         />
-        <TextButton enabled={true} label="Clear" action={onClear} />
+        <Button variant="text" enabled={true} label="Clear" action={onClear} />
       </div>
     </>
   );
