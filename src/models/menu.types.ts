@@ -1,13 +1,20 @@
-export interface MenuItem {
-  id: number;
+export interface BaseMenuItem {
+  [key: string]: string | number;
   name: string;
   price: number;
+  tagline: string;
   description: string;
   image: string;
+  calories: number;
+  category: string;
+}
+
+export interface MenuItem extends BaseMenuItem {
+  id: string;
 }
 
 export interface MenuItems {
-  [key: number]: MenuItem;
+  [key: string]: MenuItem;
 }
 
 export interface MenuError {
@@ -33,8 +40,11 @@ export interface MenuFields {
 export interface MenuFormInput {
   name: string;
   price: number;
+  tagline: string;
   description: string;
   image: string;
+  calories: number;
+  category: string;
 }
 
 export enum FetchState {

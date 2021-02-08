@@ -12,9 +12,9 @@
   width: 230px;
 
   margin: 0;
-  padding: 24px 0 0 0;
+  padding: 0;
 
-  background: $secondary-dark;
+  background: $rich-brown;
 
   font-family: $core-font;
   font-size: 14px;
@@ -23,21 +23,29 @@
   z-index: 9999;
   user-select: none;
   cursor: default;
+
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .nav-bar__header {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 
-  height: 60px;
-  width: 100%;
+  //margin: 12px 12px 0;
 
+  width: calc(100% - 12px);
+  margin: 12px 0 12px 12px;
+  //border-radius: 3px;
+
+  //background-color: $primary;
   font-family: $logo-font;
   font-size: 24px;
   color: $on-secondary;
+  overflow: hidden;
 }
 
 .nav-bar__menu {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 
@@ -116,17 +124,20 @@
 .nav-bar__footer {
   display: flex;
   flex-direction: column;
+  align-self: flex-end;
 
   width: 100%;
 
   color: $on-secondary;
+
+  margin-bottom: 24px;
 }
 
 .nav-bar__user-info {
   display: flex;
-  margin: 8px 24px 24px 24px;
+  margin: 0 24px;
   padding-top: 10px;
-  border-top: 1px solid $secondary-light;
+  //border-top: 1px solid $secondary-light;
 }
 
 .nav-bar__user-info-link {
@@ -139,7 +150,7 @@
 }
 
 .nav-bar__user-info-link--active {
-  color: $highlight;
+  color: $lime-green;
 }
 
 .nav-bar__user-info-avatar {
@@ -153,4 +164,16 @@
   display: flex;
   align-items: center;
   margin-left: 10px;
+}
+
+.nav-bar__authentication-button {
+  align-self: center;
+  margin: 0 24px;
+  font-size: 14px;
+  //width: 60px;
+  height: 36px;
+  //max-width: 320px;
+  width: calc(100% - 48px);
+  font-weight: 600;
+  letter-spacing: 0.16em;
 }

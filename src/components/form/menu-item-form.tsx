@@ -1,22 +1,38 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { FormButton } from "./form-button";
-import { MenuFormInput, MenuItem } from "../../models/menu.types";
+import { BaseMenuItem, MenuFormInput } from "../../models/menu.types";
 import { FormField } from "./form-field";
+
+import { OutlineButton } from "../ui/outline-button";
+import { TextButton } from "../ui/text-button";
 
 import "./form.scss";
 
 interface FormProps {
-  menuItem: MenuItem;
+  menuItem: BaseMenuItem;
   onSubmit: (data: MenuFormInput) => void;
 }
 
 export const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
-  const { register, handleSubmit, errors, formState } = useForm<MenuFormInput>({
+  const { register, handleSubmit, errors, formState, reset } = useForm<
+    MenuFormInput
+  >({
     mode: "onChange",
   });
   const { isValid } = formState;
+
+  const onClear = async () => {
+    reset({
+      name: "",
+      price: 0,
+      tagline: "",
+      description: "",
+      image: "",
+      calories: 0,
+      category: "",
+    });
+  };
 
   return (
     <>
@@ -26,7 +42,8 @@ export const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
           name="name"
           required={true}
           pattern={/^[A-Za-z ]+$/}
-          errors={errors.name}
+          error={errors.name}
+          errorMessage="must only include letters"
           register={register}
           defaultValue={menuItem.name}
         />
@@ -35,16 +52,28 @@ export const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
           name="price"
           required={true}
           pattern={/^([1-9]+[0-9]*|0)(\.[\d][\d])$/}
-          errors={errors.price}
+          error={errors.price}
+          errorMessage="must be a dollar amount including cents"
           register={register}
           defaultValue={(menuItem.price / 100).toFixed(2)}
+        />
+        <FormField
+          label="Tagline"
+          name="tagline"
+          required={true}
+          error={errors.tagline}
+          pattern={/^[A-Za-z0-9 '".,;!?\-()]+$/}
+          errorMessage={`must only include letters, numbers, or any of the following: ' " . , ; ! ?`}
+          register={register}
+          defaultValue={menuItem.tagline}
         />
         <FormField
           label="Description"
           name="description"
           required={true}
           pattern={/^[A-Za-z0-9 '".,;!?\-()]+$/}
-          errors={errors.description}
+          error={errors.description}
+          errorMessage={`must only include letters, numbers, or any of the following: ' " . , ; ! ?`}
           register={register}
           defaultValue={menuItem.description}
         />
@@ -53,17 +82,40 @@ export const MenuItemForm: React.FC<FormProps> = ({ menuItem, onSubmit }) => {
           name="image"
           required={true}
           pattern={/^(https:\/\/).+(\.[a-z]{2,3}\/).+(\.(jpg|jpeg|png))$/}
-          errors={errors.image}
+          error={errors.image}
+          errorMessage="must be a valid URL"
           register={register}
           defaultValue={menuItem.image}
         />
+        <FormField
+          label="Calories"
+          name="calories"
+          required={true}
+          pattern={/^[0-9]+$/}
+          error={errors.calories}
+          errorMessage="must be an integer number"
+          register={register}
+          defaultValue={menuItem.calories}
+        />
+        <FormField
+          label="Category"
+          name="category"
+          required={true}
+          pattern={/^[a-zA-Z]+$/}
+          error={errors.category}
+          errorMessage="must only include letters"
+          register={register}
+          defaultValue={menuItem.category}
+        />
       </form>
-      <FormButton
-        enabled={isValid}
-        label="Save"
-        action={handleSubmit(onSubmit)}
-      />
-      <FormButton enabled={true} label="Clear" action={() => {}} />
+      <div className="form__actions">
+        <OutlineButton
+          enabled={isValid}
+          label="Save"
+          action={handleSubmit(onSubmit)}
+        />
+        <TextButton enabled={true} label="Clear" action={onClear} />
+      </div>
     </>
   );
 };

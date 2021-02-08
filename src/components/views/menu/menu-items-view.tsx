@@ -52,7 +52,11 @@ export const MenuItemsView: React.FC = React.memo(() => {
   if (isMenuAdmin) {
     return (
       <View>
-        <Content title="Menu Items" actionName="Add Item" action={addMenuItem}>
+        <Content
+          title="Menu Items"
+          actionName="+ Add Item"
+          action={addMenuItem}
+        >
           {body}
         </Content>
       </View>

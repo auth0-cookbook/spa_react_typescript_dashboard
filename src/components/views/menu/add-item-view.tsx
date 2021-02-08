@@ -1,57 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 import { View, ViewStates } from "../../layout/view";
 import { Content } from "../../layout/content";
 
-import { MenuFormInput, MenuItem } from "../../../models/menu.types";
-
 import { MenuItemForm } from "../../form/menu-item-form";
-import { useHistory } from "react-router-dom";
+import { BaseMenuItem, MenuFormInput } from "../../../models/menu.types";
 
 import { useMenu } from "../../../context/menu-context";
-import { Loading } from "../../ui/loading";
 
 export const AddItemView = () => {
-  const [isProcessing] = useState<boolean>(false);
   const history = useHistory();
   const { createMenuItem } = useMenu();
 
   const submit = async (data: MenuFormInput) => {
-    const menuItem: MenuItem = {
-      id: -1,
+    const menuItem: BaseMenuItem = {
       ...data,
     };
 
     menuItem.price = menuItem.price * 100;
 
-    console.log(menuItem);
-
     await createMenuItem(menuItem);
   };
 
-  const menuItemPlaceholder: MenuItem = {
-    id: -1,
-    name: "Spring Salad",
-    price: 400,
-    description: "Fresh",
-    image: "https://cdn.auth0.com/blog/whatabyte/salad-sm.png",
+  const menuItemPlaceholder: BaseMenuItem = {
+    name: "French Fries",
+    price: 299,
+    tagline: "Crispy goodness",
+    description:
+      "A plate of light and crispy French fries using Idaho potatoes and peanut oil",
+    image:
+      "https://as2.ftcdn.net/jpg/02/13/18/09/500_F_213180964_DfqvRIHj0D3t9duYUROXuQ011AgVJIaM.jpg",
+    calories: 410,
+    category: "sides",
   };
 
   const cancel = async (): Promise<void> => {
     history.push("/menu");
   };
 
-  if (isProcessing) {
-    return (
-      <View viewStatus={ViewStates.Valid}>
-        <Loading />
-      </View>
-    );
-  }
-
   return (
     <View viewStatus={ViewStates.Valid}>
-      <Content title="Edit Menu Item" actionName="Cancel" action={cancel}>
+      <Content title="Add Menu Item" actionName="Cancel" action={cancel}>
         <MenuItemForm menuItem={menuItemPlaceholder} onSubmit={submit} />
       </Content>
     </View>

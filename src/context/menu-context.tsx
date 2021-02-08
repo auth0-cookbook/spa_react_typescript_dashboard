@@ -1,7 +1,8 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
-import { MenuItem, MenuItems } from "../models/menu.types";
+import { BaseMenuItem, MenuItem, MenuItems } from "../models/menu.types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
+import { useEnv } from "../hooks/use-env";
 
 const MenuContext = React.createContext<
   [MenuItems, Dispatch<SetStateAction<MenuItems>>] | undefined
@@ -19,6 +20,7 @@ const MenuProvider: React.FC = (props) => {
 
 const useMenu = () => {
   const context = useContext(MenuContext);
+  const { apiServerUrl } = useEnv();
 
   if (context === undefined) {
     throw new Error(`useMenu must be used within a MenuProvider`);
@@ -33,9 +35,7 @@ const useMenu = () => {
     setMenuItems(newMenuItems);
   };
 
-  const createMenuItem = async (newMenuItem: MenuItem) => {
-    const apiServerUrl = process.env.REACT_APP_API_SERVER_URL;
-
+  const createMenuItem = async (newMenuItem: BaseMenuItem) => {
     if (!apiServerUrl) {
       return;
     }
@@ -49,7 +49,7 @@ const useMenu = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ item: newMenuItem }),
+        body: JSON.stringify(newMenuItem),
       });
 
       if (res.ok) {
@@ -60,18 +60,16 @@ const useMenu = () => {
 
   const readMenuItems = () => menuItems;
 
-  const readMenuItem = (menuItemId: number) => menuItems[menuItemId];
+  const readMenuItem = (menuItemId: string) => menuItems[menuItemId];
 
   const updateMenuItem = async (updatedMenuItem: MenuItem) => {
-    const itemReqUrl = `${
-      process.env.REACT_APP_API_SERVER_URL
-    }/${updatedMenuItem.id.toString()}`;
+    const itemReqUrl = `${apiServerUrl}/${updatedMenuItem.id}`;
 
     const token = await getAccessTokenSilently();
 
     try {
       const res = await fetch(itemReqUrl, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -85,10 +83,8 @@ const useMenu = () => {
     } catch (e) {}
   };
 
-  const deleteMenuItem = async (menuItemId: number) => {
-    const itemReqUrl = `${
-      process.env.REACT_APP_API_SERVER_URL
-    }/${menuItemId.toString()}`;
+  const deleteMenuItem = async (menuItemId: string) => {
+    const itemReqUrl = `${apiServerUrl}/${menuItemId.toString()}`;
 
     const token = await getAccessTokenSilently();
 

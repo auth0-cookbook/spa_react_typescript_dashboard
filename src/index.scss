@@ -1,4 +1,10 @@
-@import "./theme/colors";
+@import url("https://fonts.googleapis.com/css?family=Ruda:400,600,700,800");
+
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&display=swap");
+
+@import "./theme/theme";
 
 * {
   box-sizing: border-box;
@@ -8,7 +14,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background: $secondary-core;
+  background: $cream;
 }
 
 body {
@@ -27,21 +33,6 @@ body {
   width: 100%;
 }
 
-#mask {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  left: 0;
-  top: 0;
-  position: fixed;
-  will-change: transform;
-  transition: opacity 0.25s;
-
-  z-index: 100;
-}
-
 div[tabindex][role="group"] {
   flex: 1;
   display: flex;
@@ -58,16 +49,61 @@ a {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
   border: 0;
   border-radius: 2px;
-  -webkit-text-fill-color: $primary-opaque;
-  -webkit-box-shadow: 0 0 0 1000px $secondary-super-dark inset;
+  -webkit-text-fill-color: $brown;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
   transition: background-color 5000s ease-in-out 0s;
   caret-color: $on-secondary;
+  font-family: $core-font;
+}
+
+input {
+  &:-webkit-autofill::first-line,
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    font-family: $core-font;
+    font-size: 16px;
+  }
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: 0;
+  background: transparent;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: $core-font;
+  font-size: 18px;
+  text-align: center;
+  text-transform: uppercase;
+
+  height: $default-row-height;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+
+  user-select: none;
+  cursor: pointer;
+
+  min-width: 120px;
 }

@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { FetchState, MenuError, MenuItems } from "../models/menu.types";
-import { useMenu } from "../context/menu-context";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { useMenu } from "../context/menu-context";
+import { useEnv } from "./use-env";
 
 export const useMenuItems = () => {
   const [menuFetchError, setMenuFetchError] = useState<MenuError>();
   const [fetchState, setFetchState] = useState<FetchState>(FetchState.FETCHING);
 
   const { createMenuItems } = useMenu();
-  // const menuItems = readMenuItems();
+  const { apiServerUrl } = useEnv();
 
   useEffect(() => {
     const fetchMenuItems = async () => {
-      const apiServerUrl = process.env.REACT_APP_API_SERVER_URL;
-
       if (!apiServerUrl) {
         return;
       }
@@ -45,7 +44,7 @@ export const useMenuItems = () => {
     };
 
     fetchMenuItems();
-  }, []);
+  }, [apiServerUrl, createMenuItems]);
 
   return { fetchState, menuFetchError };
 };

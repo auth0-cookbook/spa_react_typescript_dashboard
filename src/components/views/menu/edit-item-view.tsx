@@ -1,9 +1,15 @@
 import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import { View, ViewStates } from "../../layout/view";
 import { Content } from "../../layout/content";
-import { Button } from "../../ui/button";
 import { MenuItemForm } from "../../form/menu-item-form";
+
+import { Loader } from "../../ui/loader";
+import { useMenuAdmin } from "../../../hooks/use-menu-admin";
+import { useMenu } from "../../../context/menu-context";
+import { useMenuItem } from "../../../hooks/use-menu-item";
+import { OutlineButton } from "../../ui/outline-button";
 
 import {
   FetchState,
@@ -11,17 +17,9 @@ import {
   MenuItem,
 } from "../../../models/menu.types";
 
-import { useHistory, useParams } from "react-router-dom";
-
-import { Loading } from "../../ui/loading";
-import { useMenuAdmin } from "../../../hooks/use-menu-admin";
-import { useMenu } from "../../../context/menu-context";
-import { useMenuItem } from "../../../hooks/use-menu-item";
-
 export const EditItemView = () => {
   const history = useHistory();
-  const { menuItemId: menuItemIdParam } = useParams();
-  const menuItemId = parseInt(menuItemIdParam, 10);
+  const { menuItemId } = useParams();
 
   const isMenuAdmin = useMenuAdmin();
   const { updateMenuItem } = useMenu();
@@ -44,13 +42,16 @@ export const EditItemView = () => {
   };
 
   if (fetchState === FetchState.FETCHING) {
-    return <Loading />;
+    return <Loader />;
   }
 
-  if (!(menuItem && !isMenuAdmin)) {
+  if (!(menuItem && isMenuAdmin)) {
     return (
       <View viewStatus={ViewStates.NotFound}>
-        <Button label="View menu items" action={() => history.push("/menu")} />
+        <OutlineButton
+          label="View menu items"
+          action={() => history.push("/menu")}
+        />
       </View>
     );
   }

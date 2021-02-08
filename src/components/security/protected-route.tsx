@@ -1,21 +1,24 @@
-import React from "react";
-import { Route } from "react-router-dom";
+import React, { ComponentClass, FunctionComponent } from "react";
+import { Route, RouteProps } from "react-router-dom";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { Loading } from "../ui/loading";
-import { RouteProps } from "react-router";
+import { Loader } from "../ui/loader";
 
 interface ProtectedRouteProps extends RouteProps {
-  component: React.ComponentType;
+  component: ComponentClass<any, any> | FunctionComponent<any>;
+  path: string;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   component,
+
   ...args
-}) => (
-  <Route
-    component={withAuthenticationRequired(component, {
-      onRedirecting: () => <Loading />,
-    })}
-    {...args}
-  />
-);
+}) => {
+  return (
+    <Route
+      component={withAuthenticationRequired(component, {
+        onRedirecting: () => <Loader />,
+      })}
+      {...args}
+    />
+  );
+};

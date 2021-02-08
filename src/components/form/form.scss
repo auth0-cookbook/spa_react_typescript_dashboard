@@ -4,18 +4,22 @@
   display: flex;
   align-self: center;
   flex-direction: column;
+
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .form__message--error {
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding-bottom: 0.75em;
-  color: $super-highlight-3;
+
+
   font-size: 16px;
   font-weight: bold;
+  color: $highlight;
   letter-spacing: 1px;
 }
 
@@ -28,6 +32,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
   margin-right: 7.5px;
 }
 
@@ -41,4 +46,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.form__actions {
+  display: flex;
+  padding: 24px;
 }

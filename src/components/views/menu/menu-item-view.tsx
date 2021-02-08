@@ -1,24 +1,22 @@
 import React from "react";
 
 import { View, ViewStates } from "../../layout/view";
-import { Button } from "../../ui/button";
 import { Content } from "../../layout/content";
 
 import { useHistory, useParams } from "react-router-dom";
-import { useMenu } from "../../../context/menu-context";
 import { useMenuAdmin } from "../../../hooks/use-menu-admin";
 import { useMenuItem } from "../../../hooks/use-menu-item";
 
 import { FetchState } from "../../../models/menu.types";
 
 import "./menu-item-view.scss";
+import { OutlineButton } from "../../ui/outline-button";
 
 export const MenuItemView: React.FC = () => {
   const history = useHistory();
   const { menuItemId } = useParams();
-  const itemId = parseInt(menuItemId, 10);
+  const itemId = menuItemId;
 
-  const { deleteMenuItem } = useMenu();
   const isMenuAdmin = useMenuAdmin();
   const { menuItem, menuItemFetchError, fetchState } = useMenuItem(itemId);
 
@@ -45,7 +43,10 @@ export const MenuItemView: React.FC = () => {
   if (fetchState === FetchState.FETCH_NOT_FOUND) {
     return (
       <View viewStatus={ViewStates.NotFound}>
-        <Button label="View menu items" action={() => history.push("/menu")} />
+        <OutlineButton
+          label="View menu items"
+          action={() => history.push("/menu")}
+        />
       </View>
     );
   }
@@ -68,28 +69,35 @@ export const MenuItemView: React.FC = () => {
               src={menuItem.image}
               alt={`${menuItem.name}`}
             />
-            <span className="menu-item__price">
-              ${(menuItem.price / 100).toFixed(2)}
-            </span>
-            <div className="menu-item__details">
-              <span className="menu-item__description">
-                {menuItem.description}
-              </span>
+            <div className="menu-item__info">
+              <div className="menu-item__data">
+                <span className="menu-item__price">
+                  ${menuItem.price / 100}
+                </span>
+                <span className="menu-item__calories">
+                  {menuItem.calories} calories
+                </span>
+              </div>
+              <div className="menu-item__details">
+                <span className="menu-item__tagline">{menuItem.tagline}</span>
+                <br />
+                <br />
+                <span>{menuItem.description}</span>
+              </div>
             </div>
             {isMenuAdmin && menuItem && (
               <div className="menu-item__actions">
-                <Button
+                <OutlineButton
                   label="Edit"
-                  size="xsmall"
                   action={() => {
                     menuItem && history.push(`/menu/${menuItem.id}/edit-item/`);
                   }}
                 />
-                <Button
+                <OutlineButton
                   label="Delete"
-                  size="xsmall"
-                  action={async () => {
-                    await deleteMenuItem(menuItem.id);
+                  action={() => {
+                    menuItem &&
+                      history.push(`/menu/${menuItem.id}/delete-item/`);
                   }}
                 />
               </div>

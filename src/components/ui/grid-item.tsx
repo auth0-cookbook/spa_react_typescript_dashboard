@@ -6,26 +6,27 @@ import { faUtensils } from "@fortawesome/free-solid-svg-icons/faUtensils";
 import "./grid-item.scss";
 
 interface IGridItemProps {
-  id: number;
+  id: string;
   content: string;
   name: string;
-  description: string;
+  tagline: string;
+  category: string;
 }
 
-export const GridItem: React.FC<IGridItemProps> = React.memo(
-  (props: IGridItemProps) => (
+export const GridItem: React.FC<IGridItemProps> = (props: IGridItemProps) => {
+  return (
     <div className="grid-item">
       <Link
-        className={"grid-item__link effect__filter--darken"}
+        className="grid-item__link effect__filter-darken"
         style={{ display: "flex", flexDirection: "column" }}
         to={`/menu/${props.id}`}
       >
         <div className="grid-item__image-frame">
-          <div className="grid-item__placeholder">
+          <div className="grid-item__image-frame-placeholder">
             <FontAwesomeIcon icon={faUtensils} />
           </div>
           <div
-            className="grid-item__content"
+            className="grid-item__image-frame-content"
             style={{
               background: `url(${props.content})`,
               backgroundRepeat: "no-repeat",
@@ -36,9 +37,10 @@ export const GridItem: React.FC<IGridItemProps> = React.memo(
         </div>
         <div className="grid-item__info">
           <span className="grid-item__name">{props.name}</span>
-          <span className="grid-item__description">{props.description}</span>
+          <span className="grid-item__tagline">{props.tagline}</span>
+          <span className="grid-item__category">{props.category}</span>
         </div>
       </Link>
     </div>
-  )
-);
+  );
+};
