@@ -23,6 +23,8 @@ export const useMenuAdmin = () => {
 
     const userRoles: string[] = user[rolesProp] || [];
 
+    console.log(userRoles);
+
     const isMenuAdmin: boolean = menuAdminRole
       ? userRoles.includes(menuAdminRole)
       : false;

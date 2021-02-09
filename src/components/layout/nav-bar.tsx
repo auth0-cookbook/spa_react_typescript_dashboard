@@ -72,7 +72,7 @@ export const NavBar: React.FC = () => {
         <div className="nav-bar__footer">
           <Button
             variant="solid"
-            customClass="nav-bar__authentication-button"
+            customClass="authentication-button"
             label="Log Out"
             action={() => logout()}
           />
@@ -85,7 +85,7 @@ export const NavBar: React.FC = () => {
         <div className="nav-bar__footer">
           <Button
             variant="solid"
-            customClass="nav-bar__authentication-button"
+            customClass="authentication-button"
             label="Log In"
             action={async () => await loginWithRedirect()}
           />

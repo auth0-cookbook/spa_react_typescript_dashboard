@@ -13,16 +13,6 @@ export const AddItemView = () => {
   const history = useHistory();
   const { createMenuItem } = useMenu();
 
-  const submit = async (data: MenuFormInput) => {
-    const menuItem: BaseMenuItem = {
-      ...data,
-    };
-
-    menuItem.price = menuItem.price * 100;
-
-    await createMenuItem(menuItem);
-  };
-
   const menuItemPlaceholder: BaseMenuItem = {
     name: "French Fries",
     price: 299,
@@ -33,6 +23,16 @@ export const AddItemView = () => {
       "https://as2.ftcdn.net/jpg/02/13/18/09/500_F_213180964_DfqvRIHj0D3t9duYUROXuQ011AgVJIaM.jpg",
     calories: 410,
     category: "sides",
+  };
+
+  const submit = async (data: MenuFormInput) => {
+    const menuItem: BaseMenuItem = {
+      ...data,
+    };
+
+    menuItem.price = menuItem.price * 100;
+
+    await createMenuItem(menuItem);
   };
 
   const cancel = async (): Promise<void> => {
