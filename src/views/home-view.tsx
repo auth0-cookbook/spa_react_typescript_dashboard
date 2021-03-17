@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Content } from "../../layout/content";
-import { View } from "../../layout/view";
+import { Content } from "../components/layout/content";
+import { View } from "../components/layout/view";
 
 import { useAuth0 } from "@auth0/auth0-react";
 

@@ -1,23 +1,24 @@
 import React from "react";
 
-import { View, ViewStates } from "../../layout/view";
-import { Content } from "../../layout/content";
+import { View, ViewStates } from "../components/layout/view";
+import { Content } from "../components/layout/content";
 
 import { useHistory, useParams } from "react-router-dom";
-import { useMenuAdmin } from "../../../hooks/use-menu-admin";
-import { useMenuItem } from "../../../hooks/use-menu-item";
+import { useAccessRoles } from "../components/security/use-access-roles";
+import { useMenuItem } from "../utils/use-menu-item";
 
-import { FetchState } from "../../../models/menu.types";
+import { FetchState } from "../models/menu.types";
 
 import "./menu-item-view.scss";
-import { Button } from "../../ui/button";
+import { Button } from "../components/ui/button";
+import { USER_ROLES } from "../components/security/user-roles";
 
 export const MenuItemView: React.FC = () => {
   const history = useHistory();
   const { menuItemId } = useParams();
   const itemId = menuItemId;
 
-  const isMenuAdmin = useMenuAdmin();
+  const { accessRoles } = useAccessRoles();
   const { menuItem, menuItemFetchError, fetchState } = useMenuItem(itemId);
 
   const back = async () => {
@@ -86,7 +87,7 @@ export const MenuItemView: React.FC = () => {
                 <span>{menuItem.description}</span>
               </div>
             </div>
-            {isMenuAdmin && menuItem && (
+            {accessRoles[USER_ROLES.MENU_ADMIN] && menuItem && (
               <div className="menu-item__actions">
                 <Button
                   variant="outline"

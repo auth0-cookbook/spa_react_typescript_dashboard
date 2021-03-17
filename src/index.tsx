@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
 
-import { MenuProvider } from "./context/menu-context";
+import { MenuProvider } from "./utils/menu-context";
 import { Auth0ProviderWithHistory } from "./components/security/auth0-provider-with-history";
 
 import history from "./history";

@@ -1,8 +1,10 @@
 import React, { ComponentClass, FunctionComponent } from "react";
 import { ProtectedRoute } from "./protected-route";
 
-import { useMenuAdmin } from "../../hooks/use-menu-admin";
+import { useAccessRoles } from "./use-access-roles";
 import { Redirect } from "react-router-dom";
+import { AccessRoleState } from "../../models/auth.types";
+import { USER_ROLES } from "./user-roles";
 
 interface IMenuAdminRouteProps {
   path: string;
@@ -11,9 +13,13 @@ interface IMenuAdminRouteProps {
 }
 
 export const MenuAdminRoute: React.FC<IMenuAdminRouteProps> = (props) => {
-  const isMenuAdmin = useMenuAdmin();
+  const { accessRoles, accessRoleState } = useAccessRoles();
 
-  return isMenuAdmin ? (
+  if (accessRoleState === AccessRoleState.FETCHING) {
+    return null;
+  }
+
+  return accessRoles[USER_ROLES.MENU_ADMIN] ? (
     <ProtectedRoute {...props} />
   ) : (
     <Redirect to={props.redirectPath || "/"} />

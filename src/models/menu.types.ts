@@ -22,31 +22,6 @@ export interface MenuError {
   message: string;
 }
 
-export interface MenuField {
-  id: string;
-  name: string;
-  validation?: {
-    validator: (value: string) => void;
-    invalidMessage: string;
-  };
-  isRequired?: boolean;
-  defaultValue?: string | number;
-}
-
-export interface MenuFields {
-  [key: string]: MenuField;
-}
-
-export interface MenuFormInput {
-  name: string;
-  price: number;
-  tagline: string;
-  description: string;
-  image: string;
-  calories: number;
-  category: string;
-}
-
 export enum FetchState {
   FETCHING = "FETCHING",
   FETCHED = "FETCHED",

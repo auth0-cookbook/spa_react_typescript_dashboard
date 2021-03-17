@@ -1,27 +1,24 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import { View, ViewStates } from "../../layout/view";
-import { Content } from "../../layout/content";
-import { MenuItemForm } from "../../form/menu-item-form";
+import { View, ViewStates } from "../components/layout/view";
+import { Content } from "../components/layout/content";
+import { MenuItemForm } from "../components/form/menu-item-form";
 
-import { Loader } from "../../ui/loader";
-import { useMenuAdmin } from "../../../hooks/use-menu-admin";
-import { useMenu } from "../../../context/menu-context";
-import { useMenuItem } from "../../../hooks/use-menu-item";
+import { Loader } from "../components/ui/loader";
+import { useAccessRoles } from "../components/security/use-access-roles";
+import { useMenu } from "../utils/menu-context";
+import { useMenuItem } from "../utils/use-menu-item";
 
-import {
-  FetchState,
-  MenuFormInput,
-  MenuItem,
-} from "../../../models/menu.types";
-import { Button } from "../../ui/button";
+import { BaseMenuItem, FetchState, MenuItem } from "../models/menu.types";
+import { Button } from "../components/ui/button";
+import { USER_ROLES } from "../components/security/user-roles";
 
 export const EditItemView = () => {
   const history = useHistory();
   const { menuItemId } = useParams();
 
-  const isMenuAdmin = useMenuAdmin();
+  const { accessRoles } = useAccessRoles();
   const { updateMenuItem } = useMenu();
 
   const { menuItem, fetchState } = useMenuItem(menuItemId);
@@ -30,7 +27,7 @@ export const EditItemView = () => {
     await history.push(`/menu/${menuItemId}`);
   };
 
-  const submit = async (data: MenuFormInput) => {
+  const submit = async (data: BaseMenuItem) => {
     const menuItem: MenuItem = {
       id: menuItemId,
       ...data,
@@ -45,7 +42,7 @@ export const EditItemView = () => {
     return <Loader />;
   }
 
-  if (!(menuItem && isMenuAdmin)) {
+  if (!(menuItem && accessRoles[USER_ROLES.MENU_ADMIN])) {
     return (
       <View viewStatus={ViewStates.NotFound}>
         <Button

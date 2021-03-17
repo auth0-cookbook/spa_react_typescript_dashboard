@@ -1,13 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { View, ViewStates } from "../../layout/view";
-import { Content } from "../../layout/content";
+import { View, ViewStates } from "../components/layout/view";
+import { Content } from "../components/layout/content";
 
-import { MenuItemForm } from "../../form/menu-item-form";
-import { BaseMenuItem, MenuFormInput } from "../../../models/menu.types";
+import { MenuItemForm } from "../components/form/menu-item-form";
+import { BaseMenuItem } from "../models/menu.types";
 
-import { useMenu } from "../../../context/menu-context";
+import { useMenu } from "../utils/menu-context";
 
 export const AddItemView = () => {
   const history = useHistory();
@@ -25,7 +25,7 @@ export const AddItemView = () => {
     category: "sides",
   };
 
-  const submit = async (data: MenuFormInput) => {
+  const submit = async (data: BaseMenuItem) => {
     const menuItem: BaseMenuItem = {
       ...data,
     };

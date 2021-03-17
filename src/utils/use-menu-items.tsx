@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FetchState, MenuError, MenuItems } from "../models/menu.types";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useMenu } from "../context/menu-context";
+import { useMenu } from "./menu-context";
 import { useEnv } from "./use-env";
 
 export const useMenuItems = () => {
@@ -9,16 +9,18 @@ export const useMenuItems = () => {
   const [fetchState, setFetchState] = useState<FetchState>(FetchState.FETCHING);
 
   const { createMenuItems } = useMenu();
-  const { apiServerUrl } = useEnv();
+  const { apiServerRootUrl } = useEnv();
 
   useEffect(() => {
     const fetchMenuItems = async () => {
-      if (!apiServerUrl) {
+      if (!apiServerRootUrl) {
         return;
       }
 
       try {
-        const response: AxiosResponse = await axios.get(apiServerUrl);
+        const response: AxiosResponse = await axios.get(
+          `${apiServerRootUrl}/api/menu/items`
+        );
 
         const { data }: { data: MenuItems } = response;
 
@@ -44,7 +46,7 @@ export const useMenuItems = () => {
     };
 
     fetchMenuItems();
-  }, [apiServerUrl, createMenuItems]);
+  }, []);
 
   return { fetchState, menuFetchError };
 };

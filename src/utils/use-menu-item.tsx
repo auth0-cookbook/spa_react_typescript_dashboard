@@ -8,9 +8,9 @@ export const useMenuItem = (id: string) => {
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
   const [menuItemFetchError, setMenuItemFetchError] = useState<MenuError>();
   const [fetchState, setFetchState] = useState<FetchState>(FetchState.FETCHING);
-  const { apiServerUrl } = useEnv();
+  const { apiServerRootUrl } = useEnv();
 
-  const itemReqUrl = `${apiServerUrl}/${id.toString()}`;
+  const itemReqUrl = `${apiServerRootUrl}/api/menu/items/${id.toString()}`;
 
   useEffect(() => {
     const fetchMenuItem = async () => {

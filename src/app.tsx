@@ -5,10 +5,10 @@ import { ProtectedRoute } from "./components/security/protected-route";
 import { NavBar } from "./components/layout/nav-bar";
 import { Loader } from "./components/ui/loader";
 
-import { HomeView } from "./components/views/home/home-view";
-import { MenuView } from "./components/views/menu/menu-view";
-import { UserProfileView } from "./components/views/user-profile/user-profile-view";
-import { NotFoundView } from "./components/views/common/not-found-view";
+import { HomeView } from "./views/home-view";
+import { MenuView } from "./views/menu-view";
+import { UserProfileView } from "./views/user-profile-view";
+import { NotFoundView } from "./views/not-found-view";
 
 import { useAuth0 } from "@auth0/auth0-react";
 

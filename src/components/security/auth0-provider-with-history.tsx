@@ -3,7 +3,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { useEnv } from "../../hooks/use-env";
+import { useEnv } from "../../utils/use-env";
 
 export const Auth0ProviderWithHistory: React.FC = ({ children }) => {
   const history = useHistory();

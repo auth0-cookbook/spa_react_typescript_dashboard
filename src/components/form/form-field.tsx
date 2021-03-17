@@ -4,7 +4,7 @@ import "./form-field.scss";
 
 import { FieldError, useForm, ValidationRules } from "react-hook-form";
 
-interface FormFieldProps {
+export interface FormFieldProps {
   label: string;
   name: string;
   register: ReturnType<typeof useForm>["register"];

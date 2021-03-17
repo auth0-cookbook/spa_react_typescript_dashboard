@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import { BaseMenuItem, MenuItem, MenuItems } from "../models/menu.types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-import { useEnv } from "../hooks/use-env";
+import { useEnv } from "./use-env";
 
 const MenuContext = React.createContext<
   [MenuItems, Dispatch<SetStateAction<MenuItems>>] | undefined
@@ -20,7 +20,7 @@ const MenuProvider: React.FC = (props) => {
 
 const useMenu = () => {
   const context = useContext(MenuContext);
-  const { apiServerUrl } = useEnv();
+  const { apiServerRootUrl } = useEnv();
 
   if (context === undefined) {
     throw new Error(`useMenu must be used within a MenuProvider`);
@@ -36,14 +36,14 @@ const useMenu = () => {
   };
 
   const createMenuItem = async (newMenuItem: BaseMenuItem) => {
-    if (!apiServerUrl) {
+    if (!apiServerRootUrl) {
       return;
     }
 
     const token = await getAccessTokenSilently();
 
     try {
-      const res = await fetch(apiServerUrl, {
+      const res = await fetch(`${apiServerRootUrl}/api/menu/items`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const useMenu = () => {
   const readMenuItem = (menuItemId: string) => menuItems[menuItemId];
 
   const updateMenuItem = async (updatedMenuItem: MenuItem) => {
-    const itemReqUrl = `${apiServerUrl}/${updatedMenuItem.id}`;
+    const itemReqUrl = `${apiServerRootUrl}/api/menu/items/${updatedMenuItem.id}`;
 
     const token = await getAccessTokenSilently();
 
@@ -84,7 +84,9 @@ const useMenu = () => {
   };
 
   const deleteMenuItem = async (menuItemId: string) => {
-    const itemReqUrl = `${apiServerUrl}/${menuItemId.toString()}`;
+    const itemReqUrl = `${apiServerRootUrl}/api/menu/items/${menuItemId}`;
+
+    console.log(itemReqUrl);
 
     const token = await getAccessTokenSilently();
 

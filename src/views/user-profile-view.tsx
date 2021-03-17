@@ -2,11 +2,11 @@ import React from "react";
 
 import { useAuth0, WithAuth0Props } from "@auth0/auth0-react";
 
-import { View } from "../../layout/view";
-import { Content } from "../../layout/content";
+import { View } from "../components/layout/view";
+import { Content } from "../components/layout/content";
 
 import "./user-profile-view.scss";
-import { Button } from "../../ui/button";
+import { Button } from "../components/ui/button";
 
 interface IAvatarProps {
   picture: string;

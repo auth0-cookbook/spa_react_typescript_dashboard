@@ -1,23 +1,26 @@
 import React from "react";
 
-import { View } from "../../layout/view";
-import { Content } from "../../layout/content";
-import { GridItem } from "../../ui/grid-item";
-import { Grid } from "../../ui/grid";
+import { View } from "../components/layout/view";
+import { Content } from "../components/layout/content";
+import { GridItem } from "../components/ui/grid-item";
+import { Grid } from "../components/ui/grid";
 
-import { FetchState, MenuItem } from "../../../models/menu.types";
+import { FetchState, MenuItem } from "../models/menu.types";
 
 import { useHistory } from "react-router-dom";
-import { useMenuItems } from "../../../hooks/use-menu-items";
-import { useMenuAdmin } from "../../../hooks/use-menu-admin";
-import { useMenu } from "../../../context/menu-context";
+import { useMenuItems } from "../utils/use-menu-items";
+
+import { useMenu } from "../utils/menu-context";
+
+import { useAccessRoles } from "../components/security/use-access-roles";
+import { USER_ROLES } from "../components/security/user-roles";
 
 export const MenuItemsView: React.FC = React.memo(() => {
   const history = useHistory();
 
   const { menuFetchError, fetchState } = useMenuItems();
   const { readMenuItems } = useMenu();
-  const isMenuAdmin = useMenuAdmin();
+  const { accessRoles } = useAccessRoles();
 
   const menuItems = Object.values(readMenuItems());
 
@@ -49,7 +52,7 @@ export const MenuItemsView: React.FC = React.memo(() => {
     );
   }
 
-  if (isMenuAdmin) {
+  if (accessRoles[USER_ROLES.MENU_ADMIN]) {
     return (
       <View>
         <Content
