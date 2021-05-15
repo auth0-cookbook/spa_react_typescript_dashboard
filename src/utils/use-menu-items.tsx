@@ -1,52 +1,28 @@
-import { useEffect, useState } from "react";
-import { FetchState, MenuError, MenuItems } from "../models/menu.types";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { useEffect } from "react";
 import { useMenu } from "./menu-context";
 import { useEnv } from "./use-env";
+import {
+  SecureApiStates,
+  useSecureApi,
+} from "../components/security/hooks/use-secure-api";
 
 export const useMenuItems = () => {
-  const [menuFetchError, setMenuFetchError] = useState<MenuError>();
-  const [fetchState, setFetchState] = useState<FetchState>(FetchState.FETCHING);
+  const { createMenuItems, readMenuItems } = useMenu();
+  const { apiServerRootUrl, auth0Audience } = useEnv();
+  const items = readMenuItems();
 
-  const { createMenuItems } = useMenu();
-  const { apiServerRootUrl } = useEnv();
+  const { fetchState, data, error } = useSecureApi(
+    `${apiServerRootUrl}/api/menu/items`,
+    {
+      audience: auth0Audience,
+    }
+  );
 
   useEffect(() => {
-    const fetchMenuItems = async () => {
-      if (!apiServerRootUrl) {
-        return;
-      }
+    if (fetchState === SecureApiStates.SUCCESS) {
+      createMenuItems(data);
+    }
+  }, [fetchState]);
 
-      try {
-        const response: AxiosResponse = await axios.get(
-          `${apiServerRootUrl}/api/menu/items`
-        );
-
-        const { data }: { data: MenuItems } = response;
-
-        if (data) {
-          createMenuItems(data);
-          setFetchState(FetchState.FETCHED);
-        }
-      } catch (e) {
-        const error = e as AxiosError;
-        let errorMessage = undefined;
-
-        if (error.response) {
-          const { data, status } = error.response;
-          const { message } = data;
-
-          errorMessage = message || "Unable to fetch items";
-
-          setMenuFetchError({ status, message: errorMessage });
-
-          setFetchState(FetchState.FETCH_ERROR);
-        }
-      }
-    };
-
-    fetchMenuItems();
-  }, []);
-
-  return { fetchState, menuFetchError };
+  return { items, error, fetchState };
 };

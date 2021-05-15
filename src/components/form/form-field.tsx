@@ -2,7 +2,7 @@ import React from "react";
 
 import "./form-field.scss";
 
-import { FieldError, useForm, ValidationRules } from "react-hook-form";
+import { FieldError, useForm, FieldValues } from "react-hook-form";
 
 export interface FormFieldProps {
   label: string;
@@ -25,7 +25,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   register,
   defaultValue,
 }) => {
-  const validationRules: ValidationRules = {};
+  const validationRules: FieldValues = {};
 
   if (required) {
     validationRules.required = "Required";

@@ -1,19 +1,18 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
-import { BaseMenuItem, MenuItem, MenuItems } from "../models/menu.types";
+import { BaseMenuItem, MenuItem } from "../models/menu.types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
 import { useEnv } from "./use-env";
 
 const MenuContext = React.createContext<
-  [MenuItems, Dispatch<SetStateAction<MenuItems>>] | undefined
+  [MenuItem[], Dispatch<SetStateAction<MenuItem[]>>] | undefined
 >(undefined);
 
 const MenuProvider: React.FC = (props) => {
-  const [menuItems, setMenuItems] = useState<MenuItems>({});
-  const value = React.useMemo<[MenuItems, Dispatch<SetStateAction<MenuItems>>]>(
-    () => [menuItems, setMenuItems],
-    [menuItems]
-  );
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const value = React.useMemo<
+    [MenuItem[], Dispatch<SetStateAction<MenuItem[]>>]
+  >(() => [menuItems, setMenuItems], [menuItems]);
 
   return <MenuContext.Provider value={value} {...props} />;
 };
@@ -31,7 +30,7 @@ const useMenu = () => {
   const { getAccessTokenSilently } = useAuth0();
   const history = useHistory();
 
-  const createMenuItems = (newMenuItems: MenuItems) => {
+  const createMenuItems = (newMenuItems: MenuItem[]) => {
     setMenuItems(newMenuItems);
   };
 
@@ -60,7 +59,8 @@ const useMenu = () => {
 
   const readMenuItems = () => menuItems;
 
-  const readMenuItem = (menuItemId: string) => menuItems[menuItemId];
+  const readMenuItem = (menuItemId: string) =>
+    menuItems.filter((menuItem) => menuItem.id === menuItemId);
 
   const updateMenuItem = async (updatedMenuItem: MenuItem) => {
     const itemReqUrl = `${apiServerRootUrl}/api/menu/items/${updatedMenuItem.id}`;
